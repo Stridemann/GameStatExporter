@@ -5,19 +5,21 @@
     using System.Globalization;
     using System.IO;
     using System.Text;
-    using PoeHUD.Plugins;
+    using ExileCore;
 
     public class Core : BaseSettingsPlugin<Settings>
     {
         public Core()
         {
-            PluginName = "GameStatExporter";
+            Name = "GameStatExporter";
         }
 
-        public override void Initialise()
+        public override bool Initialise()
         {
-            CanPluginBeEnabledInOptions = false;
+            base.Initialise();
+
             Settings.ExportButtonNode.OnPressed += Export;
+            return true;
         }
 
         public override void OnPluginDestroyForHotReload()
@@ -49,7 +51,7 @@
                 sb.Append(Environment.NewLine);
             }
 
-            sb.AppendLine("namespace PoeHUD.Models.Enums");
+            sb.AppendLine("namespace ExileCore.Shared.Enums");
             sb.AppendLine("{");
             sb.AppendLine("\tpublic enum GameStat");
             sb.AppendLine("\t{");
